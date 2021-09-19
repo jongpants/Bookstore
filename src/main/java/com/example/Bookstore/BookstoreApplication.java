@@ -8,7 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
-
+import com.example.Bookstore.domain.Category;
+import com.example.Bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -19,14 +20,18 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository brepository, CategoryRepository crepository) {
 		return (args) -> {
-			log.info("save a couple of students");
-			repository.save(new Book("Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929));
-			repository.save(new Book("George Orwell", "Animal Farm", "2212343-5", 1945));	
+			log.info("save a couple of books");
+			crepository.save(new Category("Fantasy"));
+			crepository.save(new Category("Horror"));
+			crepository.save(new Category("Adventure"));
+			
+			brepository.save(new Book("Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, crepository.findByName("Adventure").get(0)));
+			brepository.save(new Book("George Orwell", "Animal Farm", "2212343-5", 1945, crepository.findByName("Horror").get(0)));	
 			
 			log.info("fetch all books");
-			for (Book book : repository.findAll()) {
+			for (Book book : brepository.findAll()) {
 				log.info(book.toString());
 			}
 		};
