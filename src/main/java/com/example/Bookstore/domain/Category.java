@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Category {
@@ -44,7 +45,8 @@ public class Category {
 	public List<Book> getStudents() {
 		return books;
 	}
-
+	
+	@JsonIgnore
 	public void setStudents(List<Book> books) {
 		this.books = books;
 	}
