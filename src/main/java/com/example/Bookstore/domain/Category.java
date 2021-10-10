@@ -16,6 +16,7 @@ public class Category {
 	private Long categoryid;
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Book> books;
 	
@@ -42,12 +43,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public List<Book> getStudents() {
+	public List<Book> getBooks() {
 		return books;
 	}
 	
-	@JsonIgnore
-	public void setStudents(List<Book> books) {
+	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
 
