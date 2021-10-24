@@ -20,16 +20,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-        .authorizeRequests().antMatchers("/css/**").permitAll()
-        .and()
+        .authorizeRequests()
+          .antMatchers("/booklist", "/add", "/edit/**").permitAll()
+          .and()
         .authorizeRequests()
           .anyRequest().authenticated()
           .and()
-      .formLogin()
+        .formLogin()
           .defaultSuccessUrl("/booklist", true)
           .permitAll()
           .and()
-      .logout()
+        .logout()
           .permitAll();
     }
     
